@@ -6,6 +6,8 @@ Created by haven on 16/7/30.
 
 import Tokenizer
 from Parser import parser
+from Traverser import transformer
+from CodeGenerator import code_generator
 
 
 def pretty_print(tokens):
@@ -19,11 +21,13 @@ def pretty_print_ast(ast, space=0):
     for key, val in ast.items():
         if isinstance(val, list):
             for _ in val:
+                print(' ' * space + key)
                 pretty_print_ast(_, space + 2)
-                continue
+        elif isinstance(val, dict):
+            print(' ' * space + key)
+            pretty_print_ast(val, space + 2)
         else:
-            for _ in range(space):
-                print(' ', end='')
+            print(' ' * space, end='')
             print(key + ":" + str(val))
 
 
@@ -40,6 +44,10 @@ def a():
 if __name__ == '__main__':
     # print(a().__closure__)
     tokens = Tokenizer.tokenizer('(add 2 (subtract 4 2))')
-    pretty_print(tokens)
+    #pretty_print(tokens)
     ast = parser(tokens)
-    pretty_print_ast(ast)
+    #pretty_print_ast(ast)
+    newAst = transformer(ast)
+    #pretty_print_ast(newAst)
+    output = code_generator(newAst)
+    print('output:' + output)

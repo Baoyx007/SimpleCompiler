@@ -15,14 +15,14 @@ def parser(tokens):
         token = tokens[cur]
         if token['type'] == 'number':
             cur += 1
-            print('encount a number : %d' % (int(token['value'])))
+            # print('encount a number : %d' % (int(token['value'])))
             return {
                 'type': 'NumberLiteral',
                 'value': token['value']
             }
         if token['type'] == 'paren' and token['value'] == '(':
             cur += 1
-            token=tokens[cur]
+            token = tokens[cur]
             # name like: add , sub
             node = {
                 'type': 'CallExpression',
@@ -40,7 +40,7 @@ def parser(tokens):
         raise TypeError(tokens[cur]['type'])
 
     ast = {
-        'type': 'program',
+        'type': 'Program',
         'body': []
     }
     while cur < len(tokens):
