@@ -23,7 +23,7 @@ def pretty_print_ast(ast, space=0):
                 continue
         else:
             for _ in range(space):
-                print(' ',end='')
+                print(' ', end='')
             print(key + ":" + str(val))
 
 
